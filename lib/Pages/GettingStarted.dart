@@ -90,7 +90,7 @@ class GettingStarted extends StatelessWidget {
                       },
                     ),
                   ),
-                ),
+                ),s
                 SizedBox(height: 24),
 
                 // Feature Cards
