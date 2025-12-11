@@ -6,56 +6,98 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreen();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreen extends State<HomeScreen> {
   int _selectedIndex = 0;
+
+  // Dummy data from backend
+  final Map<String, dynamic> userData = {
+    'name': 'Alex',
+    'greeting': 'Good Morning',
+    'message': 'Your adaptive plan is ready. Let\'s crush it!',
+    'profileImage':
+    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
+    'activeStreak': 7,
+    'todayCalories': 1250,
+    'caloriesGoal': 2100,
+    'weeklyMinutes': 142,
+    'minutesTarget': 180,
+    'overallProgress': 55,
+  };
+
+  final List<Map<String, dynamic>> recommendedWorkouts = [
+    {
+      'title': 'Endurance Run',
+      'subtitle': '30 min • Low Impact',
+      'image':
+      'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800',
+      'progress': 20,
+      'type': 'workout',
+    },
+    {
+      'title': 'Protein Boost Lunch',
+      'subtitle': 'Meal Plan • 550 kcal',
+      'image':
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800',
+      'progress': null,
+      'type': 'meal',
+    },
+    {
+      'title': 'Mobility Flow',
+      'subtitle': '15 min • Recovery',
+      'image':
+      'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800',
+      'progress': 0,
+      'type': 'workout',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 360;
-    final padding = size.width * 0.05;
+    final width = size.width;
+    final height = size.height;
 
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: padding),
+            padding: EdgeInsets.symmetric(horizontal: width * 0.05),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: size.height * 0.02),
-                _buildHeader(context, isSmallScreen),
-                SizedBox(height: size.height * 0.025),
-                _buildGreetingCard(context, isSmallScreen),
-                SizedBox(height: size.height * 0.025),
-                _buildStatsCards(context, size, isSmallScreen),
-                SizedBox(height: size.height * 0.025),
-                _buildProgressCard(context, isSmallScreen),
-                SizedBox(height: size.height * 0.03),
-                _buildQuickActions(context, isSmallScreen),
-                SizedBox(height: size.height * 0.03),
-                _buildRecommendedSection(context, size, isSmallScreen),
-                SizedBox(height: size.height * 0.1),
+                SizedBox(height: height * 0.02),
+                _buildHeader(context, width, height),
+                SizedBox(height: height * 0.025),
+                _buildGreetingCard(context, width, height),
+                SizedBox(height: height * 0.025),
+                _buildStatsCards(context, width, height),
+                SizedBox(height: height * 0.025),
+                _buildProgressCard(context, width, height),
+                SizedBox(height: height * 0.03),
+                _buildQuickActions(context, width, height),
+                SizedBox(height: height * 0.03),
+                _buildRecommendedSection(context, width, height),
+                SizedBox(height: height * 0.1),
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(isSmallScreen),
+      bottomNavigationBar: _buildBottomNavigationBar(width, height),
     );
   }
 
-  Widget _buildHeader(BuildContext context, bool isSmallScreen) {
+  Widget _buildHeader(BuildContext context, double width, double height) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'DASHBOARD',
           style: TextStyle(
-            fontSize: isSmallScreen ? 26 : 32,
+            fontSize: width * 0.08,
             fontWeight: FontWeight.w900,
             color: Colors.white,
             letterSpacing: 1.5,
@@ -63,36 +105,36 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Row(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: isSmallScreen ? 16 : 20,
-                vertical: isSmallScreen ? 8 : 10,
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xFFCDFF00),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Text(
-                'Start',
-                style: TextStyle(
-                  fontSize: isSmallScreen ? 15 : 17,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
+            GestureDetector(
+              onTap: () {
+                // Your onClick logic here
+                setState(() {
+                  _selectedIndex = 1;
+                });              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.05,
+                  vertical: height * 0.012,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFCDFF00),
+                  borderRadius: BorderRadius.circular(width * 0.06),
+                ),
+                child: Text(
+                  'Start',
+                  style: TextStyle(
+                    fontSize: width * 0.042,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(width: 12),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1C1C1E),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.notifications_outlined,
-                color: Colors.white,
-                size: isSmallScreen ? 22 : 26,
-              ),
+            SizedBox(width: width * 0.03),
+            Icon(
+              Icons.notifications_outlined,
+              color: Colors.white,
+              size: width * 0.065,
             ),
           ],
         ),
@@ -100,40 +142,41 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildGreetingCard(BuildContext context, bool isSmallScreen) {
+  Widget _buildGreetingCard(BuildContext context, double width, double height) {
     return Container(
-      padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
+      padding: EdgeInsets.all(width * 0.05),
       decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF2C2C2E)),
+        color: const Color(0xFF12131A),
+        borderRadius: BorderRadius.circular(width * 0.12),
+        border: Border.all(
+          color: const Color(0xFF212229),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: [
           CircleAvatar(
-            radius: isSmallScreen ? 28 : 32,
-            backgroundImage: const NetworkImage(
-              'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
-            ),
+            radius: width * 0.08,
+            backgroundImage: NetworkImage(userData['profileImage']),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: width * 0.04),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Good Morning, Alex',
+                  '${userData['greeting']}, ${userData['name']}',
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 20 : 24,
+                    fontSize: width * 0.06,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: height * 0.005),
                 Text(
-                  'Your adaptive plan is ready. Let\'s crush it!',
+                  userData['message'],
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 13 : 15,
+                    fontSize: width * 0.037,
                     color: const Color(0xFF8E8E93),
                   ),
                 ),
@@ -145,78 +188,77 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildStatsCards(BuildContext context, Size size, bool isSmallScreen) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildStatCard(
-            title: 'Active Streak',
-            value: '7 days',
-            subtitle: 'Keep it up!',
-            isSmallScreen: isSmallScreen,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            title: 'Today\nCalories',
-            value: '1,250',
-            subtitle: 'of 2,100 goal',
-            isSmallScreen: isSmallScreen,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            title: 'Weekly\nMinutes',
-            value: '142',
-            subtitle: 'of 180 target',
-            isSmallScreen: isSmallScreen,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildStatCard({
-    required String title,
-    required String value,
-    required String subtitle,
-    required bool isSmallScreen,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF2C2C2E)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildStatsCards(BuildContext context, double width, double height) {
+    return IntrinsicHeight(
+      child: Row(
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: isSmallScreen ? 12 : 14,
-              color: const Color(0xFF8E8E93),
-              height: 1.3,
+          // --- Card 1 ---
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(width * 0.04),
+              decoration: BoxDecoration(
+                color: const Color(0xFF12131A),
+                borderRadius: BorderRadius.circular(width * 0.04),
+                border: Border.all(
+                  color: const Color(0xFF212229),
+                  width: 1.5,
+                ),
+              ),
+              child: _buildStatCard(
+                title: 'Active Streak',
+                value: '${userData['activeStreak']} days',
+                subtitle: 'Keep it up!',
+                width: width,
+                height: height,
+              ),
             ),
           ),
-          SizedBox(height: isSmallScreen ? 8 : 12),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: isSmallScreen ? 24 : 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+
+          SizedBox(width: width * 0.03),
+
+          // --- Card 2 ---
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(width * 0.04),
+              decoration: BoxDecoration(
+                color: const Color(0xFF12131A),
+                borderRadius: BorderRadius.circular(width * 0.04),
+                border: Border.all(
+                  color: const Color(0xFF212229),
+                  width: 1.5,
+                ),
+              ),
+              child: _buildStatCard(
+                title: 'Today\nCalories',
+                value: '${userData['todayCalories']}',
+                subtitle: 'of ${userData['caloriesGoal']} goal',
+                width: width,
+                height: height,
+              ),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: isSmallScreen ? 11 : 13,
-              color: const Color(0xFF8E8E93),
+
+          SizedBox(width: width * 0.03),
+
+          // --- Card 3 ---
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(width * 0.04),
+              decoration: BoxDecoration(
+                color: const Color(0xFF12131A),
+                borderRadius: BorderRadius.circular(width * 0.04),
+                border: Border.all(
+                  color: const Color(0xFF212229),
+                  width: 1.5,
+                ),
+              ),
+              child: _buildStatCard(
+                title: 'Weekly\nMinutes',
+                value: '${userData['weeklyMinutes']}',
+                subtitle: 'of ${userData['minutesTarget']} target',
+                width: width,
+                height: height,
+              ),
             ),
           ),
         ],
@@ -224,13 +266,64 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildProgressCard(BuildContext context, bool isSmallScreen) {
+  Widget _buildStatCard({
+    required String title,
+    required String value,
+    required String subtitle,
+    required double width,
+    required double height,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: width * 0.035,
+            color: const Color(0xFF8E8E93),
+            height: 1.2,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        SizedBox(height: height * 0.008),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: width * 0.065,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            height: 1.1,
+          ),
+        ),
+        SizedBox(height: height * 0.003),
+        Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: width * 0.03,
+            color: const Color(0xFF8E8E93),
+            height: 1.2,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    );
+  }
+
+
+  Widget _buildProgressCard(BuildContext context, double width, double height) {
+    final progress = userData['overallProgress'] / 100;
     return Container(
-      padding: EdgeInsets.all(isSmallScreen ? 18 : 24),
+      padding: EdgeInsets.all(width * 0.055),
       decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF2C2C2E)),
+        color: const Color(0xFF12131A),
+        borderRadius: BorderRadius.circular(width * 0.05),
+        border: Border.all(
+          color: const Color(0xFF212229),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: [
@@ -241,16 +334,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   'Overall Progress',
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 20 : 24,
+                    fontSize: width * 0.06,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: height * 0.005),
                 Text(
                   'Your plan completion',
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 13 : 15,
+                    fontSize: width * 0.037,
                     color: const Color(0xFF8E8E93),
                   ),
                 ),
@@ -258,17 +351,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(
-            width: isSmallScreen ? 80 : 100,
-            height: isSmallScreen ? 80 : 100,
+            width: width * 0.24,
+            height: width * 0.24,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  width: isSmallScreen ? 80 : 100,
-                  height: isSmallScreen ? 80 : 100,
+                  width: width * 0.24,
+                  height: width * 0.24,
                   child: CircularProgressIndicator(
-                    value: 0.55,
-                    strokeWidth: isSmallScreen ? 8 : 10,
+                    value: progress,
+                    strokeWidth: width * 0.025,
                     backgroundColor: const Color(0xFF2C2C2E),
                     valueColor: const AlwaysStoppedAnimation<Color>(
                       Color(0xFFCDFF00),
@@ -276,9 +369,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Text(
-                  '55%',
+                  '${userData['overallProgress']}%',
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 20 : 24,
+                    fontSize: width * 0.055,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFFCDFF00),
                   ),
@@ -291,42 +384,59 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildQuickActions(BuildContext context, bool isSmallScreen) {
+  Widget _buildQuickActions(BuildContext context, double width, double height) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Quick Actions',
           style: TextStyle(
-            fontSize: isSmallScreen ? 16 : 18,
+            fontSize: width * 0.045,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF8E8E93),
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: height * 0.02),
         Row(
           children: [
             Expanded(
               child: _buildActionButton(
                 icon: Icons.fitness_center,
                 label: 'Start Workout',
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  // Add your logic here, like navigation or state update
+                },
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: width * 0.03),
             Expanded(
               child: _buildActionButton(
                 icon: Icons.center_focus_strong,
                 label: 'Posture Coach',
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });                },
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: width * 0.03),
             Expanded(
               child: _buildActionButton(
                 icon: Icons.chat_bubble_outline,
                 label: 'Ask AI',
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });                },
               ),
             ),
           ],
@@ -338,80 +448,77 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildActionButton({
     required IconData icon,
     required String label,
-    required bool isSmallScreen,
+    required double width,
+    required double height,
+    VoidCallback? onTap,  // add callback
   }) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: isSmallScreen ? 16 : 20,
-      ),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF2C2C2E)),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: Colors.white,
-            size: isSmallScreen ? 28 : 32,
+    return GestureDetector(
+      onTap: onTap, // pass the callback
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: height * 0.025,
+        ),
+        decoration: BoxDecoration(
+          color: const Color(0xFF12131A),
+          borderRadius: BorderRadius.circular(width * 0.04),
+          border: Border.all(
+            color: const Color(0xFF212229),
+            width: 1.5,
           ),
-          SizedBox(height: isSmallScreen ? 8 : 12),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: isSmallScreen ? 12 : 14,
-              fontWeight: FontWeight.w600,
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
               color: Colors.white,
+              size: width * 0.08,
             ),
-          ),
-        ],
+            SizedBox(height: height * 0.012),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: width * 0.035,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildRecommendedSection(
-      BuildContext context, Size size, bool isSmallScreen) {
+      BuildContext context, double width, double height) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Recommended For You',
           style: TextStyle(
-            fontSize: isSmallScreen ? 16 : 18,
+            fontSize: width * 0.045,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF8E8E93),
           ),
         ),
-        const SizedBox(height: 16),
-        _buildRecommendedCard(
-          image:
-          'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800',
-          title: 'Endurance Run',
-          subtitle: '30 min • Low Impact',
-          progress: 0.20,
-          isSmallScreen: isSmallScreen,
-        ),
-        const SizedBox(height: 16),
-        _buildRecommendedCard(
-          image:
-          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800',
-          title: 'Protein Boost Lunch',
-          subtitle: 'Meal Plan • 550 kcal',
-          progress: null,
-          hasCheckIcon: true,
-          isSmallScreen: isSmallScreen,
-        ),
-        const SizedBox(height: 16),
-        _buildRecommendedCard(
-          image:
-          'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800',
-          title: 'Mobility Flow',
-          subtitle: '15 min • Recovery',
-          progress: 0.0,
-          isSmallScreen: isSmallScreen,
-        ),
+        SizedBox(height: height * 0.02),
+        ...recommendedWorkouts.map((workout) {
+          return Padding(
+            padding: EdgeInsets.only(bottom: height * 0.02),
+            child: _buildRecommendedCard(
+              image: workout['image'],
+              title: workout['title'],
+              subtitle: workout['subtitle'],
+              progress: workout['progress'] != null
+                  ? workout['progress'] / 100.0
+                  : null,
+              hasCheckIcon: workout['type'] == 'meal',
+              width: width,
+              height: height,
+            ),
+          );
+        }).toList(),
       ],
     );
   }
@@ -422,12 +529,13 @@ class _HomeScreenState extends State<HomeScreen> {
     required String subtitle,
     double? progress,
     bool hasCheckIcon = false,
-    required bool isSmallScreen,
+    required double width,
+    required double height,
   }) {
     return Container(
-      height: isSmallScreen ? 180 : 200,
+      height: height * 0.25,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(width * 0.05),
         image: DecorationImage(
           image: NetworkImage(image),
           fit: BoxFit.cover,
@@ -438,9 +546,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: Container(
-        padding: EdgeInsets.all(isSmallScreen ? 18 : 24),
+        padding: EdgeInsets.all(width * 0.055),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(width * 0.05),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -465,16 +573,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         title,
                         style: TextStyle(
-                          fontSize: isSmallScreen ? 22 : 26,
+                          fontSize: width * 0.065,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: height * 0.005),
                       Text(
                         subtitle,
                         style: TextStyle(
-                          fontSize: isSmallScreen ? 13 : 15,
+                          fontSize: width * 0.037,
                           color: Colors.white.withOpacity(0.8),
                         ),
                       ),
@@ -483,17 +591,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 if (progress != null)
                   SizedBox(
-                    width: isSmallScreen ? 50 : 60,
-                    height: isSmallScreen ? 50 : 60,
+                    width: width * 0.15,
+                    height: width * 0.15,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         SizedBox(
-                          width: isSmallScreen ? 50 : 60,
-                          height: isSmallScreen ? 50 : 60,
+                          width: width * 0.15,
+                          height: width * 0.15,
                           child: CircularProgressIndicator(
                             value: progress,
-                            strokeWidth: 5,
+                            strokeWidth: width * 0.012,
                             backgroundColor: Colors.white.withOpacity(0.2),
                             valueColor: const AlwaysStoppedAnimation<Color>(
                               Color(0xFFCDFF00),
@@ -503,7 +611,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           '${(progress * 100).toInt()}%',
                           style: TextStyle(
-                            fontSize: isSmallScreen ? 13 : 15,
+                            fontSize: width * 0.037,
                             fontWeight: FontWeight.bold,
                             color: const Color(0xFFCDFF00),
                           ),
@@ -513,16 +621,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 else if (hasCheckIcon)
                   Container(
-                    width: isSmallScreen ? 50 : 60,
-                    height: isSmallScreen ? 50 : 60,
+                    width: width * 0.15,
+                    height: width * 0.15,
                     decoration: BoxDecoration(
                       color: const Color(0xFFCDFF00).withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.restaurant,
-                      color: Color(0xFFCDFF00),
-                      size: 28,
+                      color: const Color(0xFFCDFF00),
+                      size: width * 0.07,
                     ),
                   ),
               ],
@@ -533,7 +641,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBottomNavigationBar(bool isSmallScreen) {
+  Widget _buildBottomNavigationBar(double width, double height) {
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF1C1C1E),
@@ -544,8 +652,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: isSmallScreen ? 8 : 16,
-            vertical: isSmallScreen ? 8 : 12,
+            horizontal: width * 0.04,
+            vertical: height * 0.015,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -554,31 +662,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icons.home,
                 label: 'Dashboard',
                 index: 0,
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
               ),
               _buildNavItem(
                 icon: Icons.fitness_center,
                 label: 'Workouts',
                 index: 1,
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
               ),
               _buildNavItem(
                 icon: Icons.trending_up,
                 label: 'Progress',
                 index: 2,
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
               ),
               _buildNavItem(
                 icon: Icons.chat_bubble_outline,
                 label: 'AI Chatbot',
                 index: 3,
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
               ),
               _buildNavItem(
                 icon: Icons.restaurant,
                 label: 'Meals',
                 index: 4,
-                isSmallScreen: isSmallScreen,
+                width: width,
+                height: height,
               ),
             ],
           ),
@@ -591,7 +704,8 @@ class _HomeScreenState extends State<HomeScreen> {
     required IconData icon,
     required String label,
     required int index,
-    required bool isSmallScreen,
+    required double width,
+    required double height,
   }) {
     final isSelected = _selectedIndex == index;
     return GestureDetector(
@@ -605,16 +719,19 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Icon(
             icon,
-            color: isSelected ? const Color(0xFFCDFF00) : const Color(0xFF8E8E93),
-            size: isSmallScreen ? 24 : 28,
+            color:
+            isSelected ? const Color(0xFFCDFF00) : const Color(0xFF8E8E93),
+            size: width * 0.07,
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: height * 0.005),
           Text(
             label,
             style: TextStyle(
-              fontSize: isSmallScreen ? 10 : 12,
+              fontSize: width * 0.03,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              color: isSelected ? const Color(0xFFCDFF00) : const Color(0xFF8E8E93),
+              color: isSelected
+                  ? const Color(0xFFCDFF00)
+                  : const Color(0xFF8E8E93),
             ),
           ),
         ],
