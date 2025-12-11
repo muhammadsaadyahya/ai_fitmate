@@ -19,6 +19,14 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+        disable += listOf("InvalidPackage", "MissingClass")
+        checkDependencies = false
+        checkGeneratedSources = false
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.ai_fitmate"

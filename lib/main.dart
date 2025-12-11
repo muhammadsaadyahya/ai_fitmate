@@ -1,5 +1,5 @@
 import 'package:ai_fitmate/Pages/GettingStarted2.dart';
-import 'package:ai_fitmate/Pages/HomeScreen.dart';
+import 'package:ai_fitmate/Pages/MainScreen.dart';
 import 'package:ai_fitmate/Pages/Login.dart';
 import 'package:ai_fitmate/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: darkMode,
-      home:HomeScreen(),
-
+      home: const MainScreen(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:ai_fitmate/Pages/HomeScreen.dart';
+import 'package:ai_fitmate/Pages/MainScreen.dart';
 import 'package:ai_fitmate/Pages/SignUp.dart';
 import 'package:ai_fitmate/components/topSnackBar.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _LoginState extends State<Login> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => MainScreen()),
       );
     } else {
       _showSnackBar('Invalid email or password');
