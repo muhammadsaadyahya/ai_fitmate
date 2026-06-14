@@ -7,6 +7,19 @@
 .buildlog/
 .history
 
+# Local secrets and generated data
+.env
+**/.env
+*.sqlite3
+backend/db.sqlite3
+backend/serviceAccountkey.json
+Exercises/Moiz_Working/fitness_chatbot/data/
+Exercises/Moiz_Working/fitness_chatbot/indexes/
+
+# IDEs
+.idea/
+*.iml
+
 
 
 # Flutter repo-specific
