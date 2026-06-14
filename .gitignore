@@ -1,0 +1,132 @@
+# ==========================================
+# Common
+# ==========================================
+*.class
+*.lock
+*.log
+*.pyc
+*.swp
+.buildlog/
+.history
+.idea/
+*.iml
+
+# ==========================================
+# Backend (Django/Python)
+# ==========================================
+backend/.env
+backend/**/.env
+
+backend/db.sqlite3
+backend/*.sqlite3
+*.sqlite3
+
+backend/serviceAccountkey.json
+
+backend/__pycache__/
+backend/**/*.pyc
+
+backend/Exercises/Moiz_Working/fitness_chatbot/data/
+backend/Exercises/Moiz_Working/fitness_chatbot/indexes/
+
+# ==========================================
+# Flutter / Frontend
+# ==========================================
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+frontend/.pub/
+frontend/.pub-preload-cache/
+
+frontend/build/
+frontend/coverage/
+
+frontend/flutter_*.png
+frontend/linked_*.ds
+frontend/unlinked.ds
+frontend/unlinked_spec.ds
+
+frontend/**/generated_plugin_registrant.dart
+
+# ==========================================
+# Android
+# ==========================================
+frontend/.gradle/
+frontend/**/android/**/gradle-wrapper.jar
+frontend/**/android/captures/
+frontend/**/android/gradlew
+frontend/**/android/gradlew.bat
+frontend/**/android/local.properties
+frontend/**/android/**/GeneratedPluginRegistrant.java
+frontend/**/android/key.properties
+
+*.jks
+
+# ==========================================
+# iOS
+# ==========================================
+frontend/**/ios/**/*.mode1v3
+frontend/**/ios/**/*.mode2v3
+frontend/**/ios/**/*.moved-aside
+frontend/**/ios/**/*.pbxuser
+frontend/**/ios/**/*.perspectivev3
+frontend/**/ios/**/*sync/
+frontend/**/ios/**/.sconsign.dblite
+frontend/**/ios/**/.tags*
+frontend/**/ios/**/.vagrant/
+frontend/**/ios/**/DerivedData/
+frontend/**/ios/**/Icon?
+frontend/**/ios/**/Pods/
+frontend/**/ios/**/.symlinks/
+frontend/**/ios/**/profile
+frontend/**/ios/**/xcuserdata
+frontend/**/ios/.generated/
+frontend/**/ios/Flutter/.last_build_id
+frontend/**/ios/Flutter/App.framework
+frontend/**/ios/Flutter/Flutter.framework
+frontend/**/ios/Flutter/Flutter.podspec
+frontend/**/ios/Flutter/Generated.xcconfig
+frontend/**/ios/Flutter/ephemeral
+frontend/**/ios/Flutter/app.flx
+frontend/**/ios/Flutter/app.zip
+frontend/**/ios/Flutter/flutter_assets/
+frontend/**/ios/Flutter/flutter_export_environment.sh
+frontend/**/ios/ServiceDefinitions.json
+frontend/**/ios/Runner/GeneratedPluginRegistrant.*
+
+# ==========================================
+# macOS
+# ==========================================
+frontend/**/Flutter/ephemeral/
+frontend/**/Pods/
+frontend/**/macos/Flutter/GeneratedPluginRegistrant.swift
+frontend/**/macos/Flutter/ephemeral
+frontend/**/xcuserdata/
+
+# ==========================================
+# Windows
+# ==========================================
+frontend/**/windows/flutter/generated_plugin_registrant.cc
+frontend/**/windows/flutter/generated_plugin_registrant.h
+frontend/**/windows/flutter/generated_plugins.cmake
+
+# ==========================================
+# Linux
+# ==========================================
+frontend/**/linux/flutter/generated_plugin_registrant.cc
+frontend/**/linux/flutter/generated_plugin_registrant.h
+frontend/**/linux/flutter/generated_plugins.cmake
+
+# ==========================================
+# Symbols
+# ==========================================
+frontend/app.*.symbols
+
+# ==========================================
+# Exceptions
+# ==========================================
+!frontend/**/ios/**/default.mode1v3
+!frontend/**/ios/**/default.mode2v3
+!frontend/**/ios/**/default.pbxuser
+!frontend/**/ios/**/default.perspectivev3

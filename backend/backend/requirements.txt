@@ -1,0 +1,8 @@
+Django==5.2.14
+django-cors-headers==4.9.0
+djangorestframework==3.17.1
+firebase_admin==7.4.0
+google-cloud-firestore==2.27.0
+python-dotenv==1.2.2
+sentence-transformers==3.0.1
+transformers==4.44.2
