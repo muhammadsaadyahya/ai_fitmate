@@ -5,7 +5,7 @@
 - `Exercises/Saad_Working`: Saad exercise notebooks.
 - `Exercises/Talha_Working`: Talha exercise notebooks and video assets.
 - `Exercises/Moiz_Working`: Moiz chatbot integration scripts and notebook.
-- `backend`: The main Django backend for the AI FitMate application.
+- `backend/backend`: The main Django backend for the AI FitMate application.
 
 ## One-time setup
 
@@ -20,7 +20,7 @@ pip install -r Exercises/Talha_Working/requirements.txt
 To set up the Django backend:
 
 ```bash
-cd backend
+cd backend/backend
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
