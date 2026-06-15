@@ -4,6 +4,8 @@
 
 - `Exercises/Saad_Working`: Saad exercise notebooks.
 - `Exercises/Talha_Working`: Talha exercise notebooks and video assets.
+- `Exercises/Moiz_Working`: Moiz chatbot integration scripts and notebook.
+- `backend/backend`: The main Django backend for the AI FitMate application.
 
 ## One-time setup
 
@@ -13,6 +15,15 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 pip install -r Exercises/Talha_Working/requirements.txt
+```
+
+To set up the Django backend:
+
+```bash
+cd backend/backend
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
 ```
 
 Optional Linux dependency (used by voice features in some notebooks):
@@ -33,6 +44,7 @@ Open and run notebooks from:
 
 - `Exercises/Talha_Working/Plank_Counter_Pose_Corrector.ipynb`
 - `Exercises/Talha_Working/both_shoulder.ipynb`
+- `Exercises/Moiz_Working/fitness_chatbot/` (Chatbot backend)
 
 ## Notes
 
